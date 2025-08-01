@@ -1,0 +1,26 @@
+{
+  "name": "bdnd-commitly",
+  "version": "1.0.0",
+  "description": "A CLI tool to generate conventional commit messages.",
+  "scripts": {
+    "build": "tsx src/main.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "bdnd-commitly": "./dist/main.js"
+  },
+  "packageManager": "pnpm@10.13.1",
+  "dependencies": {
+    "commander": "^14.0.0",
+    "dotenv": "^17.2.1",
+    "inquirer": "^12.9.0",
+    "openai": "^5.11.0"
+  },
+  "devDependencies": {
+    "@types/inquirer": "^9.0.7",
+    "@types/node": "^24.1.0",
+    "pkgroll": "^2.15.0",
+    "tsx": "^4.20.3",
+    "typescript": "^5.9.2"
+  }
+}
