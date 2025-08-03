@@ -2,22 +2,29 @@
   "name": "bdnd-commitly",
   "version": "1.0.0",
   "description": "A CLI tool to generate conventional commit messages.",
+  "packageManager": "pnpm@10.13.1",
   "scripts": {
-    "build": "tsx src/main.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "format": "biome format --write",
+    "lint": "biome check .",
+    "lint:fix": "biome check --write",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "type-check": "tsc --noEmit",
+    "dev": "tsx src/main.ts",
+    "build": "pkgroll --minify --clean-dist --tsconfig=tsconfig.build.json"
   },
   "bin": {
-    "bdnd-commitly": "./dist/main.js"
+    "bdnd-commitly": "./dist/main.mjs"
   },
-  "packageManager": "pnpm@10.13.1",
   "dependencies": {
+    "chalk": "^5.4.1",
     "commander": "^14.0.0",
     "dotenv": "^17.2.1",
     "inquirer": "^12.9.0",
-    "openai": "^5.11.0"
+    "openai": "^5.11.0",
+    "simple-git": "^3.28.0"
   },
   "devDependencies": {
-    "@types/inquirer": "^9.0.7",
+    "@biomejs/biome": "2.1.3",
     "@types/node": "^24.1.0",
     "pkgroll": "^2.15.0",
     "tsx": "^4.20.3",
