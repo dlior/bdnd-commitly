@@ -3,19 +3,24 @@ import { CommitlyError, type CommitOption } from './types';
 
 export async function initializeOpenAI(): Promise<OpenAI> {
   const apiKey = process.env.OPENAI_API_KEY;
+  const baseURL = process.env.OPENAI_API_BASE_URL || 'https://api.openai.com/v1';
 
   if (!apiKey) {
     throw new CommitlyError('OpenAI API key not found. Please set OPENAI_API_KEY environment variable.');
   }
 
-  return new OpenAI({ apiKey, baseURL: 'http://localhost:1234/v1' });
+  return new OpenAI({ apiKey, baseURL });
 }
 
 export async function generateCommitMessages(openai: OpenAI, diff: string): Promise<CommitOption[]> {
   const prompt = `
   You are a helpful assistant skilled in software development and git practices.
 
-  Based on the following git diff, generate **3 conventional commit messages** that follow the format:  
+  Based on the following git diff:\n\n${JSON.stringify(
+    diff,
+    null,
+    2,
+  )}, generate **3 conventional commit messages** that follow the format:  
   **type: description**
 
   Use only these conventional commit types:
@@ -47,7 +52,7 @@ export async function generateCommitMessages(openai: OpenAI, diff: string): Prom
 
   try {
     const response = await openai.chat.completions.create({
-      model: 'gpt-4',
+      model: 'gpt-4o-mini',
       messages: [
         {
           role: 'system',
